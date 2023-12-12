@@ -5,7 +5,6 @@ import com.piggymetrics.account.domain.Currency;
 import com.piggymetrics.account.domain.Saving;
 import com.piggymetrics.account.domain.User;
 import com.piggymetrics.account.repository.AccountRepository;
-import com.piggymetrics.account.repository.UserRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,9 +22,6 @@ public class AccountServiceImpl implements AccountService{
     //private static final BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
 
     @Autowired
-    private UserRepository userRepository;
-
-    @Autowired
     private AccountRepository accountRepository;
 
     @Override
@@ -36,14 +32,7 @@ public class AccountServiceImpl implements AccountService{
     @Override
     public Account create(User user) {
 
-        Optional<User> existing = userRepository.findById(user.getUsername());
-        existing.ifPresent(it -> {throw new IllegalArgumentException("User already exists: " + it.getUsername());});
-
-        // User creation
-        //String hash = encoder.encode(user.getPassword());
-        user.setPassword(user.getPassword());
-        userRepository.save(user);
-        log.info("New user has been created: {}", user.getUsername());
+        // User creation has to be done on auth-service
 
         //Account creation
         Saving saving = new Saving();
