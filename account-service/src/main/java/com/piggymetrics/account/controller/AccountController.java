@@ -5,7 +5,7 @@ import com.piggymetrics.account.domain.User;
 import com.piggymetrics.account.service.AccountService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.access.prepost.PreAuthorize;
+//import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -20,7 +20,7 @@ public class AccountController {
     @Autowired
     private AccountService accountService;
 
-    @PreAuthorize("#oauth2.hasScope('server') or #name.equals('demo')")
+    //@PreAuthorize("#oauth2.hasScope('server') or #name.equals('demo')")
     @RequestMapping(path = "/{name}", method = RequestMethod.GET)
     public Account getAccountByName(@PathVariable String name) {
         return accountService.findByName(name);
